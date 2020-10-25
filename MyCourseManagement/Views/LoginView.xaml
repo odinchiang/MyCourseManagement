@@ -11,6 +11,7 @@
         WindowStyle="None" AllowsTransparency="True"
         Background="{x:Null}">
     <Window.Resources>
+        <!--關閉視窗按鈕模板-->
         <ControlTemplate TargetType="Button" x:Key="CloseButtonTemplate">
             <Border Background="Transparent" Name="TemplateBorder">
                 <Path Data="M0 0 12 12M0 12 12 0" Stroke="White" StrokeThickness="2" 
@@ -26,9 +27,29 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
+        <!--登入按鈕模板-->
+        <ControlTemplate TargetType="Button" x:Key="LoginButtonTemplate">
+            <Border Background="#007DFA" CornerRadius="5">
+                <Grid>
+                    <Border Name="BdrMouseOver" CornerRadius="4" Background="#22FFFFFF" Visibility="Hidden"/>
+                    <ContentControl Content="{TemplateBinding Content}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Foreground="{TemplateBinding Foreground}"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Visibility" Value="Visible" TargetName="BdrMouseOver"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+
+        <!--帳號輸入框樣式模板-->
         <Style x:Key="UserNameTextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
             <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
@@ -86,6 +107,8 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
+
+        <!--密碼輸入框樣式模板-->
         <Style x:Key="PasswordTextBoxStyle" TargetType="{x:Type PasswordBox}">
             <Setter Property="PasswordChar" Value="●"/>
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -111,7 +134,7 @@
                                     <ColumnDefinition Width="40"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="&#xe649;" FontSize="20" 
+                                <TextBlock Grid.Column="0" Text="&#xe6a9;" FontSize="20" 
                                            FontFamily="../Assets/Fonts/#iconfont" Foreground="#DDDDDD"
                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 <ScrollViewer x:Name="PART_ContentHost" Grid.Column="1" Focusable="false" 
@@ -144,6 +167,8 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
+
+        <!--驗證碼輸入框樣式模板-->
         <Style x:Key="ValidationCodeTextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
             <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
@@ -176,6 +201,7 @@
                                               Focusable="false" HorizontalScrollBarVisibility="Hidden" 
                                               VerticalScrollBarVisibility="Hidden"
                                               VerticalAlignment="Center" MinHeight="20"/>
+                                <!--驗證碼圖片須另行處理-->
                                 <Image Grid.Column="2" Source=""/>
                             </Grid>
                             
@@ -213,7 +239,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.8*"/>
                 <RowDefinition Height="3*"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Background="#FFA500" CornerRadius="10 10 0 0"/>
             <Button Grid.Row="0" Template="{StaticResource CloseButtonTemplate}"
@@ -234,17 +260,20 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition MinHeight="23" Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBox Grid.Row="0" Height="40" FontSize="16" Foreground="#555555" 
+                <TextBox Grid.Row="0" Height="42" FontSize="16" Foreground="#555555" 
                          Style="{DynamicResource UserNameTextBoxStyle}"/>
-                <PasswordBox Grid.Row="1" Height="40" FontSize="16" Foreground="#555555"
+                <PasswordBox Grid.Row="1" Height="42" FontSize="16" Foreground="#555555"
                              Style="{DynamicResource PasswordTextBoxStyle}"/>
-                <TextBox Grid.Row="2" Height="40" FontSize="16" Foreground="#555555"
+                <TextBox Grid.Row="2" Height="42" FontSize="16" Foreground="#555555"
                          Style="{DynamicResource ValidationCodeTextBoxStyle}"/>
-                <Button Grid.Row="3" Content="登入" Height="40"/>
-                <TextBlock Grid.Row="4" Text="登入失敗" Foreground="Red"/>
+                <Button Grid.Row="3" Content="登入" Height="42" 
+                        Template="{StaticResource LoginButtonTemplate}"
+                        Foreground="White" FontSize="16"/>
+                <TextBlock Grid.Row="4" Text="" Foreground="Red" FontSize="13"
+                           TextWrapping="Wrap" LineHeight="22"
+                           HorizontalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="2" Margin="20 0">
                 <Grid.RowDefinitions>
@@ -262,11 +291,25 @@
                     <Border Grid.Column="2" BorderBrush="#DDDDDD" BorderThickness="0 0 0 1" VerticalAlignment="Center"/>
                 </Grid>
                 <UniformGrid Grid.Row="1" Columns="5">
-                    <Border Background="Gray"/>
+                    <UniformGrid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="#DDDDDD"/>
+                            <Setter Property="FontFamily" Value="../Assets/Fonts/#iconfont"/>
+                            <Setter Property="FontSize" Value="40"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#007DFA"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </UniformGrid.Resources>
+                    <TextBlock Text="&#xe639;"/>
                     <Border/>
-                    <Border Background="Gray"/>
+                    <TextBlock Text="&#xea0c;"/>
                     <Border/>
-                    <Border Background="Gray"/>
+                    <TextBlock Text="&#xe600;"/>
                 </UniformGrid>
             </Grid>
         </Grid>
