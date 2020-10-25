@@ -40,6 +40,53 @@
             <Button Grid.Row="0" Template="{StaticResource CloseButtonTemplate}"
                     VerticalAlignment="Top" HorizontalAlignment="Right" 
                     Width="30" Height="30"/>
+            <StackPanel Grid.Row="0" VerticalAlignment="Bottom" Margin="0 0 0 40">
+                <Border Width="110" Height="51" Margin="0 0 0 20">
+                    <Border.Background>
+                        <ImageBrush ImageSource="../Assets/Images/MingHeart.png"/>
+                    </Border.Background>
+                </Border>
+                <TextBlock Text="明心管理平台" HorizontalAlignment="Center" 
+                           Foreground="White" FontSize="18" FontWeight="Bold"/>
+            </StackPanel>
+            <Grid Grid.Row="1" Margin="20 30">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Row="0" Height="40"/>
+                <TextBox Grid.Row="1" Height="40"/>
+                <TextBox Grid.Row="2" Height="40"/>
+                <Button Grid.Row="3" Content="登入" Height="40"/>
+                <TextBlock Grid.Row="4" Text="登入失敗" Foreground="Red"/>
+            </Grid>
+            <Grid Grid.Row="2" Margin="20 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderBrush="#DDDDDD" BorderThickness="0 0 0 1" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="OR" Foreground="#CCCCCC" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Border Grid.Column="2" BorderBrush="#DDDDDD" BorderThickness="0 0 0 1" VerticalAlignment="Center"/>
+                </Grid>
+                <UniformGrid Grid.Row="1" Columns="5">
+                    <Border Background="Gray"/>
+                    <Border/>
+                    <Border Background="Gray"/>
+                    <Border/>
+                    <Border Background="Gray"/>
+                </UniformGrid>
+            </Grid>
         </Grid>
     </Border>
 </Window>
